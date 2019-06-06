@@ -7,7 +7,10 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsActivity1 extends FragmentActivity implements OnMapReadyCallback {
@@ -39,8 +42,23 @@ public class MapsActivity1 extends FragmentActivity implements OnMapReadyCallbac
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+//        LatLng sydney = new LatLng(-34, 151);
+//        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        LatLng LaPaz = new LatLng(-16.4824723, -68.1216728);
+        MarkerOptions marker = new MarkerOptions().position(LaPaz).title("prueba 1");
+        marker.snippet("descripcion 2 prueba ");
+        marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.tres));
+        marker.title("el titulo amo");
+        mMap.addMarker(marker);
+
+        LatLng LaPaz2 = new LatLng(-16.485250026968032,-68.12180858683244);
+        mMap.addMarker(new MarkerOptions().position(LaPaz2).title("prueba 2")).setSnippet("prueba descripcion");
+        LatLng LaPaz3 = new LatLng(-16.48061252314386,-68.1211912859956);
+        mMap.addMarker(new MarkerOptions().position(LaPaz3).title("prueba 3"))
+                .setIcon(BitmapDescriptorFactory.fromResource(R.drawable.mexico));
+
+
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LaPaz,15));
     }
 }
