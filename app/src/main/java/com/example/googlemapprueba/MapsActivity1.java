@@ -2,6 +2,7 @@ package com.example.googlemapprueba;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -13,9 +14,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapsActivity1 extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity1 extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private GoogleMap mMap;
+
+    private Marker marcador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,14 +54,33 @@ public class MapsActivity1 extends FragmentActivity implements OnMapReadyCallbac
         marker.title("el titulo amo");
         mMap.addMarker(marker);
 
-        LatLng LaPaz2 = new LatLng(-16.485250026968032,-68.12180858683244);
-        mMap.addMarker(new MarkerOptions().position(LaPaz2).title("prueba 2")).setSnippet("prueba descripcion");
+//        LatLng LaPaz2 = new LatLng(-16.485250026968032,-68.12180858683244);
+//        mMap.addMarker(new MarkerOptions().position(LaPaz2).title("prueba 2")).setSnippet("prueba descripcion");
         LatLng LaPaz3 = new LatLng(-16.48061252314386,-68.1211912859956);
         mMap.addMarker(new MarkerOptions().position(LaPaz3).title("prueba 3"))
                 .setIcon(BitmapDescriptorFactory.fromResource(R.drawable.mexico));
 
+        LatLng Prueba = new LatLng(-16.485250026968032,-68.12180858683244);
+        MarkerOptions PruebaMarker = new MarkerOptions().position(Prueba);
+        PruebaMarker.draggable(true); // Linea muy importante para seleccionar el icono Y ARRASTRAR
+        marcador = googleMap.addMarker(PruebaMarker);
+
 
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LaPaz,15));
+
+
+        //esta llinea permite dar click sobre un marcador y direcciona a ONMARKERCLICK
+        googleMap.setOnMarkerClickListener(this);
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+
+        if(marker.equals(marcador))
+        {
+            Toast.makeText(this, "Latitud y Longitud"+marker.getPosition().latitude + " _ " + marker.getPosition().longitude , Toast.LENGTH_SHORT).show();
+        }
+        return false;
     }
 }
